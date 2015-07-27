@@ -1,0 +1,19 @@
+{
+  "name": "Grunt-setup",
+  "version": "0.0.0",
+  "authors": [
+    "Magnus Helmersson <magnus.helmersson@gmail.com>"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "angular": "~1.4.3",
+    "restangular": "~1.5.1"
+  }
+}
