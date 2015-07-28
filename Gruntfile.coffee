@@ -20,6 +20,23 @@ module.exports = (grunt) ->
 
     pkg: grunt.file.readJSON('package.json')
 
+    copy:
+      build:
+        files:
+          [
+            {
+              expand: true
+              flatten: true
+              src: ['<%= project.app %>/*index.html']
+              dest: '<%= project.dist %>/'
+            }, {
+              expand: true
+              flatten: true
+              src: ['<%= project.app %>/*/**/*.html']
+              dest: '<%= project.dist %>/partials/'
+            }
+          ]
+
     jshint:
       options:
         jshintrc: '.jshintrc'
@@ -55,16 +72,17 @@ module.exports = (grunt) ->
             '<%= project.assets %>/css/main.less'
 
     bower_concat:
-      all:
+      build:
         dest: '<%= project.dist %>/js/lib.js'
 
   grunt.registerTask 'default', [
-    'coffeelint', 'jshint', 'uglify', 'less', 'bower_concat'
+    'copy', 'coffeelint', 'jshint', 'uglify', 'less', 'bower_concat'
   ]
 
   # ===========================================================================
   # LOAD GRUNT PLUGINS ========================================================
   # ===========================================================================
+  grunt.loadNpmTasks 'grunt-contrib-copy'
   grunt.loadNpmTasks 'grunt-contrib-jshint'
   grunt.loadNpmTasks 'grunt-contrib-concat'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
