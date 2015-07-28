@@ -47,7 +47,7 @@ module.exports = (grunt) ->
     coffeelint:
       build:
         files:
-          src: ['Gruntfile.coffee', '<%= project.app %>/**/*.coffee']
+          src: ['Gruntfile.coffee']
 
     ngAnnotate:
       '.tmp/js/controllers.js':
@@ -84,6 +84,25 @@ module.exports = (grunt) ->
     bower_concat:
       build:
         dest: '.tmp/js/lib.js'
+
+    watch:
+      configFiles:
+        files: ['Gruntfile.coffee']
+        tasks: ['coffeelint']
+        options:
+          reload: true
+      ngAnnotate:
+        files: '<%= project.app %>/**/*.js'
+        tasks: ['jshint', 'ngAnnotate', 'uglify']
+      bower_concat:
+        files: 'bower_components/**/*.js'
+        tasks: ['bower_concat', 'uglify']
+      less:
+        files: '<%= project.assets %>/css/**/*.less'
+        tasks: ['less']
+      copy:
+        files: '<%= project.app %>/**/*.html'
+        tasks: ['copy']
 
   grunt.registerTask 'default', [
     'copy', 'bower_concat', 'coffeelint', 'jshint', 'ngAnnotate',
