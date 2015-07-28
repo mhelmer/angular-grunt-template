@@ -26,28 +26,41 @@ module.exports = (grunt) ->
         reporter: require('jshint-stylish')
       build:
         src: ['Gruntfile.js', '<%= project.app %>/**/*.js']
+
+    coffeelint:
+      build:
+        files:
+          src: ['Gruntfile.coffee', '<%= project.app %>/**/*.coffee']
       
     uglify:
       options:
-        banner: '/*\n <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> \n*/\n'
+        banner:
+          '/*\n <%= pkg.name %>
+           <%= grunt.template.today("yyyy-mm-dd") %> \n*/\n'
       build:
         files:
-          '<%= project.dist %>/js/controllers.min.js': '<%= project.app %>/**/*Controller.js'
-          '<%= project.dist %>/js/services.min.js': '<%= project.app %>/**/*Service.js'
-          '<%= project.dist %>/js/app.min.js': '<%= project.app %>/app.*.js'
+          '<%= project.dist %>/js/controllers.min.js':
+            '<%= project.app %>/**/*Controller.js'
+          '<%= project.dist %>/js/services.min.js':
+            '<%= project.app %>/**/*Service.js'
+          '<%= project.dist %>/js/app.min.js':
+            '<%= project.app %>/app.*.js'
 
     less:
       build:
         options:
           compress: true
         files:
-          '<%= project.dist %>/css/main.css': '<%= project.assets %>/css/main.less'
+          '<%= project.dist %>/css/main.css':
+            '<%= project.assets %>/css/main.less'
 
     bower_concat:
       all:
         dest: '<%= project.dist %>/js/lib.js'
 
-  grunt.registerTask 'default', ['jshint', 'uglify', 'less', 'bower_concat']
+  grunt.registerTask 'default', [
+    'coffeelint', 'jshint', 'uglify', 'less', 'bower_concat'
+  ]
 
   # ===========================================================================
   # LOAD GRUNT PLUGINS ========================================================
@@ -59,3 +72,4 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-cssmin'
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-bower-concat'
+  grunt.loadNpmTasks 'grunt-coffeelint'

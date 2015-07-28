@@ -2,15 +2,18 @@
   "name": "grunt-cli-testing",
   "version": "0.0.0",
   "devDependencies": {
+    "chalk": "latest",
     "grunt": "^0.4.5",
     "grunt-bower-concat": "latest",
+    "grunt-coffeelint": "latest",
     "grunt-contrib-concat": "latest",
     "grunt-contrib-cssmin": "latest",
     "grunt-contrib-jshint": "latest",
     "grunt-contrib-less": "latest",
     "grunt-contrib-uglify": "latest",
     "grunt-contrib-watch": "latest",
-    "jshint-stylish": "latest"
+    "jshint-stylish": "latest",
+    "text-table": "latest"
   },
   "author": "Magnus Helmersson <magnus.helmersson@gmail.com>"
 }
