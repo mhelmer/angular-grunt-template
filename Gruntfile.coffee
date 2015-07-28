@@ -27,7 +27,7 @@ module.exports = (grunt) ->
             {
               expand: true
               flatten: true
-              src: ['<%= project.app %>/*index.html']
+              src: ['<%= project.app %>/index.html']
               dest: '<%= project.dist %>/'
             }, {
               expand: true
@@ -48,6 +48,14 @@ module.exports = (grunt) ->
       build:
         files:
           src: ['Gruntfile.coffee', '<%= project.app %>/**/*.coffee']
+
+    ngAnnotate:
+      '.tmp/js/controllers.js':
+        ['<%= project.app %>/**/*Controller.js']
+      '.tmp/js/services.js':
+        ['<%= project.app %>/**/*Service.js']
+      '.tmp/js/app.min.js':
+        ['<%= project.app %>/app.*.js']
       
     uglify:
       options:
@@ -57,11 +65,13 @@ module.exports = (grunt) ->
       build:
         files:
           '<%= project.dist %>/js/controllers.min.js':
-            '<%= project.app %>/**/*Controller.js'
+            '.tmp/js/controllers.js'
           '<%= project.dist %>/js/services.min.js':
-            '<%= project.app %>/**/*Service.js'
+            '.tmp/js/services.js'
           '<%= project.dist %>/js/app.min.js':
-            '<%= project.app %>/app.*.js'
+            '.tmp/js/app.*.js'
+          '<%= project.dist %>/js/lib.min.js':
+            '.tmp/js/lib.js'
 
     less:
       build:
@@ -73,10 +83,11 @@ module.exports = (grunt) ->
 
     bower_concat:
       build:
-        dest: '<%= project.dist %>/js/lib.js'
+        dest: '.tmp/js/lib.js'
 
   grunt.registerTask 'default', [
-    'copy', 'coffeelint', 'jshint', 'uglify', 'less', 'bower_concat'
+    'copy', 'bower_concat', 'coffeelint', 'jshint', 'ngAnnotate',
+    'uglify', 'less',
   ]
 
   # ===========================================================================
@@ -91,3 +102,4 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-bower-concat'
   grunt.loadNpmTasks 'grunt-coffeelint'
+  grunt.loadNpmTasks 'grunt-ng-annotate'

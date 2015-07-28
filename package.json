@@ -13,6 +13,7 @@
     "grunt-contrib-less": "latest",
     "grunt-contrib-uglify": "latest",
     "grunt-contrib-watch": "latest",
+    "grunt-ng-annotate": "latest",
     "jshint-stylish": "latest",
     "text-table": "latest"
   },
