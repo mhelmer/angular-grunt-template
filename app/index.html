@@ -1,12 +1,20 @@
 <!doctype html>
-<html>
+<html ng-app="app">
 <head>
   <title>angular-grunt-template</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="css/main.css" rel="stylesheet" type="text/css">
   <script src="js/lib.min.js"></script>
   <script src="js/app.min.js"></script>
   <script src="js/controllers.min.js"></script>
   <script src="js/services.min.js"></script>
+  <base href="/">
 </head>
 <body>
+  <ul>
+    <li><a href="/">/</a></li>
+    <li><a href="/compone">/compone</a></li>
+    <li><a href="/comptwo">/comptwo</a></li>
+  <div ng-view></div>
 </body>
 </html>
