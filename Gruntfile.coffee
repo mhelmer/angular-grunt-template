@@ -34,6 +34,11 @@ module.exports = (grunt) ->
               flatten: true
               src: ['<%= project.app %>/*/**/*.html']
               dest: '<%= project.dist %>/partials/'
+            }, {
+              expand: true
+              flatten: true
+              src: 'bower_components/bootstrap/dist/fonts/*'
+              dest: '<%= project.dist %>/fonts/'
             }
           ]
 
@@ -49,6 +54,11 @@ module.exports = (grunt) ->
         files:
           src: ['Gruntfile.coffee']
 
+    concat:
+      build:
+        []
+
+
     ngAnnotate:
       '.tmp/js/controllers.js':
         ['<%= project.app %>/**/*Controller.js']
@@ -56,6 +66,8 @@ module.exports = (grunt) ->
         ['<%= project.app %>/**/*Service.js']
       '.tmp/js/app.min.js':
         ['<%= project.app %>/app.*.js']
+      '.tmp/js/shared.js':
+        ['<%= project.app %>/shared/**/*.js']
       
     uglify:
       options:
@@ -72,6 +84,8 @@ module.exports = (grunt) ->
             '.tmp/js/app.*.js'
           '<%= project.dist %>/js/lib.min.js':
             '.tmp/js/lib.js'
+          '<%= project.dist %>/js/shared.min.js':
+            '.tmp/js/shared.js'
 
     less:
       build:
@@ -86,13 +100,19 @@ module.exports = (grunt) ->
         dest: '.tmp/js/lib.js'
 
     watch:
+      options:
+        livereload: true
       configFiles:
         files: ['Gruntfile.coffee']
         tasks: ['coffeelint']
         options:
           reload: true
       ngAnnotate:
-        files: '<%= project.app %>/**/*.js'
+        files: [
+          '<%= project.app %>/app.*.js',
+          '<%= project.app %>/components/**/*.js',
+          '<%= project.app %>/shared/**/*.js'
+        ]
         tasks: ['jshint', 'ngAnnotate', 'uglify']
       bower_concat:
         files: 'bower_components/**/*.js'
@@ -103,9 +123,12 @@ module.exports = (grunt) ->
       copy:
         files: '<%= project.app %>/**/*.html'
         tasks: ['copy']
+      concat:
+        files: []
+        tasks: ['jshint', 'concat', 'uglify']
 
   grunt.registerTask 'default', [
-    'copy', 'bower_concat', 'coffeelint', 'jshint', 'ngAnnotate',
+    'copy', 'concat', 'bower_concat', 'coffeelint', 'jshint', 'ngAnnotate',
     'uglify', 'less',
   ]
 
